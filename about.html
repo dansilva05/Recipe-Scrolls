@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us - My Recipe Scrolls</title>
+  <link rel="stylesheet" href="CSS/stylesheet.css">
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      <h1>My Recipe Scrolls</h1>
+      <p>About Us</p>
+    </header>
+
+    <div id="content">
+      <nav>
+        <ul>
+          <li><a href="index.html">Homepage</a></li>
+          <li><a href="recipes.html">Recipes</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+
+      <main>
+        <div class="about">
+          <h2>About the Website</h2>
+          <p>My aim in this project is to help people keep track of their favourite meals in one place while presenting
+            my skills using HTML, CSS, and (specially) JavaScript.</p>
+        </div>
+
+        <div class="about">
+          <h2>About the Data</h2>
+          <p>On the Welcome page, the greeting message is customised to the time of the day - Good Morning, Good
+            Afternoon and Good Evening</p>
+          <p>All recipes are stored in an array as objects using JavaScript. Each one has a title, ingredients, cooking
+            time, and instructions. Title, ingredient, cooking and time to prepare are shown in cards, while the
+            steps/instructions are shown after you click on the recipe card (to do that I used Dialog).</p>
+          <p>In this page, 'About Us', the site and me, I have also used Dialog in order to hide a contact form (which I
+            believe to be more aesthetically pleasing); but the form is not sent to anywhere after.</p>
+        </div>
+
+        <div class="about">
+          <h2>About the Designer</h2>
+          <p>About me, I'm a 19yo student in SETU coursing Software System Development and this website is a project,
+            part of my coursework, to show how I can use code to build useful websites (hopefully I did well&#128513;).
+          </p>
+        </div>
+
+        <div class="about">
+          <h2>Contact Me</h2>
+          <button id="contactBtn">Open Contact Form</button>
+        </div>
+      </main>
+
+      <!-- Dialog to hide the form and make it into a pop up, double beautiful to me, way better than if it was on the site itself -->
+      <dialog id="contactDialog">
+        <header class="modal__title">
+          <h1>Contact Form</h1>
+        </header>
+
+        <!-- Form that sends to nowhere -->
+        <form id="contact-form" action="mailto:ramdom@email.com" method="post" enctype="text/plain">
+          <input type="text" id="name" placeholder="Your Name" required>
+          <input type="email" id="email" placeholder="Your Email" required>
+          <textarea id="message" placeholder="Your Message" required></textarea>
+          <button type="submit">Send</button>
+          <button type="button" id="closeBtn">Close</button>
+        </form>
+        <p id="form-message"></p>
+      </dialog>
+
+      <footer>
+        <p>This site was made by</p>
+        <p>Danilo Silva© 2024</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    //DOMs
+    let contactBtn = document.getElementById("contactBtn");
+    let contactDialog = document.getElementById("contactDialog");
+    let closeBtn = document.getElementById("closeBtn");
+    let messageBox = document.getElementById("form-message");
+
+    //Shows Dialog after clicking the button
+    contactBtn.addEventListener("click", function () {
+      contactDialog.showModal();
+    });
+
+    //close Dialog button
+    closeBtn.addEventListener("click", function () {
+      contactDialog.close();
+    });
+
+    //event listener to check if the form is filled, if yes, it shows a message
+    document.getElementById("contact-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      let name = document.getElementById("name").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let message = document.getElementById("message").value.trim();
+
+      if (name !== "" && email !== "" && message !== "") {
+        messageBox.textContent = "Thanks for your message, " + name + "!";
+        this.reset();
+      }
+    });
+  </script>
+</body>
+</html>

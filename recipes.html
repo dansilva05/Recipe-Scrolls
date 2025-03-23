@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recipes - My Recipe Scrolls</title>
+  <link rel="stylesheet" href="CSS/stylesheet.css">
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      <h1>My Recipe Scrolls</h1>
+      <p>Recipes</p>
+    </header>
+
+    <div id="content">
+      <nav>
+        <ul>
+          <li><a href="index.html">Homepage</a></li>
+          <li><a href="recipes.html">Recipes</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+
+      <main>
+        <h2>Recipe List</h2>
+
+        <input type="text" id="search" placeholder="Search by title or ingredient">
+
+        <!-- Recipe cards are inserted here using JavaScript -->
+        <div id="recipe-list" class="cards"></div>
+
+        <h2>Add New Recipe</h2>
+        <form id="recipe-form">
+          <div class="form-row">
+            <label for="image">Image URL</label>
+            <input type="text" id="image" placeholder="Image URL (optional)">
+          </div>
+
+          <div class="form-row">
+            <label for="title">Title</label>
+            <input type="text" id="title" placeholder="Recipe Title" required>
+          </div>
+
+          <div class="form-row">
+            <label for="ingredients">Ingredients</label>
+            <input type="text" id="ingredients" placeholder="Ingredients" required>
+          </div>
+
+          <div class="form-row">
+            <label for="time">Time</label>
+            <input type="text" id="time" placeholder="Cooking Time" required>
+          </div>
+
+          <div class="form-row">
+            <label for="instructions">Instructions</label>
+            <textarea id="instructions" placeholder="Write instructions..." required></textarea>
+          </div>
+
+          <button type="submit">Add Recipe</button>
+        </form>
+      </main>
+
+      <!-- Dialog box to show recipe instructions -->
+      <dialog id="instructionsDialog">
+        <header class="modal__title">
+          <h1>Instructions</h1>
+        </header>
+        <div id="instructionsContent" style="padding: 1em;"></div>
+        <button id="closeBtn">Close</button>
+      </dialog>
+
+      <footer>
+        <p>This site was made by</p>
+        <p>Danilo Silva© 2024</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // script to display a recipe list, filters them depending on user input,
+    // and pops-up instructions using <dialog>.
+
+    // Array of recipe objects
+    const recipes = [
+      {
+        image: "images/spaguetti.jpg",
+        title: "Spaghetti",
+        ingredients: "pasta, tomato sauce, minced meat",
+        time: "30 mins",
+        instructions: "Boil pasta. Cook sauce with meat. Mix and serve."
+      },
+      {
+        image: "images/salad.jpg",
+        title: "Salad",
+        ingredients: "lettuce, tomato, cucumber",
+        time: "10 mins",
+        instructions: "Chop vegetables, mix and serve."
+      }
+    ];
+
+    // DOMs
+    const list = document.getElementById("recipe-list");
+    const form = document.getElementById("recipe-form");
+    const search = document.getElementById("search");
+    const dialog = document.getElementById("instructionsDialog");
+    const dialogContent = document.getElementById("instructionsContent");
+    const closeBtn = document.getElementById("closeBtn");
+
+    // Function to display all recipes (or filtered ones)
+    function showRecipes(data) {
+      list.innerHTML = ""; // Clear the list first
+
+      for (let i = 0; i < data.length; i++) {
+        let recipe = data[i];
+        let card = document.createElement("div");
+        card.className = "card";
+
+        let imgTag = recipe.image
+          ? `<img src="${recipe.image}" alt="${recipe.title}">`
+          : '<div class="noImg">No Image</div>';
+
+        card.innerHTML =
+          `${imgTag}
+      <div class="text">
+        <h3>${recipe.title}</h3>
+        <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
+        <p><strong>Time:</strong> ${recipe.time}</p>
+        <button onclick="deleteRecipe(${i})">Delete</button>
+      </div>`;
+
+        // When the card is clicked instructions are shown
+        card.addEventListener("click", function (e) {
+          if (e.target.tagName !== "BUTTON") {
+            dialogContent.innerHTML = `<p>${recipe.instructions}</p>`;
+            dialog.showModal();
+          }
+        });
+
+        list.appendChild(card);
+      }
+    }
+
+    // Delete recipe from array then refresh list
+    function deleteRecipe(index) {
+      recipes.splice(index, 1);
+      showRecipes(recipes);
+    }
+
+    // Submit handler to add new recipes
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let newRecipe = {
+        image: document.getElementById("image").value,
+        title: document.getElementById("title").value,
+        ingredients: document.getElementById("ingredients").value,
+        time: document.getElementById("time").value,
+        instructions: document.getElementById("instructions").value
+      };
+
+      // Add new recipe and refresh
+      recipes.push(newRecipe);
+      form.reset();
+      showRecipes(recipes);
+    });
+
+    // Search handler to filters recipes by title or ingredients
+    search.addEventListener("input", function () {
+      let term = search.value.toLowerCase();
+      let filtered = recipes.filter(function (r) {
+        return r.title.toLowerCase().includes(term) ||
+          r.ingredients.toLowerCase().includes(term);
+      });
+      showRecipes(filtered);
+    });
+
+    // Close instructions dialog
+    closeBtn.addEventListener("click", function () {
+      dialog.close();
+    });
+
+    // Initial load to show all the recipes
+    showRecipes(recipes);
+  </script>
+</body>
+</html>
