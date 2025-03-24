@@ -94,7 +94,7 @@
         image: "images/salad.jpg",
         title: "Salad",
         ingredients: "lettuce, tomato, cucumber",
-        time: "10 mins",
+        time: "5 mins",
         instructions: "Chop vegetables, mix and serve."
       }
     ];
@@ -108,17 +108,21 @@
     const closeBtn = document.getElementById("closeBtn");
 
     // Function to display all recipes (or filtered ones)
-    function showRecipes(data) {
+    function showRecipes(a) {
       list.innerHTML = ""; // Clear the list first
 
-      for (let i = 0; i < data.length; i++) {
-        let recipe = data[i];
+      for (let i = 0; i < a.length; i++) {
+        let recipe = a[i];
         let card = document.createElement("div");
         card.className = "card";
 
-        let imgTag = recipe.image
-          ? `<img src="${recipe.image}" alt="${recipe.title}">`
-          : '<div class="noImg">No Image</div>';
+        let imgTag;
+        if (recipe.image) {
+          imgTag = `<img src="${recipe.image}" alt="${recipe.title}">`;
+        } else {
+          imgTag = '<div class="noImg">No Image</div>';
+        }
+
 
         card.innerHTML =
           `${imgTag}
@@ -130,6 +134,7 @@
       </div>`;
 
         // When the card is clicked instructions are shown
+        //I asked help from AI for this
         card.addEventListener("click", function (e) {
           if (e.target.tagName !== "BUTTON") {
             dialogContent.innerHTML = `<p>${recipe.instructions}</p>`;
