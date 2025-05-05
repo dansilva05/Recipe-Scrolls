@@ -1,11 +1,12 @@
 /*I've taken some from my previous assingment as I really liked the layout, but sized and customized to this new project*/
-body, html {
+body,
+html {
     width: 100%;
     height: 100%;
+    font-family: Verdana, Helvetica, Arial, sans-serif !important;
 }
 
 body {
-    font-family: Verdana, Helvetica, Arial, sans-serif;
     background-color: #5C3B1E;
     background-image: url(../images/scrolls\ background.jpg);
     line-height: 1.25;
@@ -26,6 +27,7 @@ header {
 
 header>h1 {
     color: #FAF5EF;
+    padding: 2em 20px 8px;
     padding-bottom: 0;
     margin-bottom: 0;
 }
@@ -48,12 +50,11 @@ header>p {
 h1 {
     font-size: 250%;
     color: #2B2B2B;
-    padding: 2em 20px 8px;
+    padding: 1em 20px 8px;
     margin: 0;
 }
 
 h2 {
-    font-size: 1.3em;
     color: #2B2B2B;
     padding-top: 0.5em;
     padding-left: 20px;
@@ -72,6 +73,7 @@ nav {
     width: 100%;
     background-color: #7D5A3A;
     padding: 1em 0;
+    margin: 2em 0 0;
 }
 
 nav ul {
@@ -179,13 +181,13 @@ footer>p {
     transform: scale(1.1);
 }
 
-.form-row {
+.form-question {
     display: flex;
     flex-direction: column;
     margin-bottom: 1em;
 }
 
-.form-row>label {
+.form-question>label {
     font-weight: bold;
     margin-bottom: 0.5em;
 }
@@ -232,4 +234,160 @@ button {
 
 button:hover {
     opacity: 0.9;
+}
+
+.texts {
+    max-width: 90%;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+    color: #FAF5EF;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #5C3B1E;
+    border-radius: 10px;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 5px 10px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.box {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.text-box {
+    flex: 2;
+    min-width: 250px;
+}
+
+.stacker {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.stacked-images {
+    position: absolute;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    max-height: 500px;
+    border-radius: 10px;
+    /* Made by GPT from here */
+    transition: opacity 2s ease-in-out;
+}
+
+.stacked-images.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+/* to here */
+
+.image-box {
+    flex: 1;
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.image {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    max-height: 250px;
+    border-radius: 20px;
+}
+
+#shaking:hover {
+    position: relative;
+    animation: animation 4s forwards ease-in-out;
+}
+
+@keyframes animation {
+    10% {
+        translate: 3px 20px;
+    }
+
+    20% {
+        translate: 0px -15px;
+    }
+
+    30% {
+        translate: -2px 15px;
+    }
+
+    40% {
+        translate: 2px -17px;
+    }
+
+    50% {
+        translate: -2px 20px;
+    }
+
+    60% {
+        translate: 0px -10px;
+    }
+
+    70% {
+        translate: 1px 13px;
+    }
+
+    80% {
+        translate: -1px -10px;
+    }
+
+    90% {
+        translate: 0px 5px;
+    }
+
+    100% {
+        translate: 0 0;
+    }
+}
+
+#lg-container {
+    width: 80%;
+    margin: 1em auto;
+    border: solid #C97B63;
+}
+
+#gallery {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.lg-image {
+    /*asked GPT  how to keep the image square, it told me touse aspect-ratio */
+    aspect-ratio: 1/1;
+    width: 100%;
+    max-width: 195.5px;
+    border-radius: 20px;
+}
+
+.comment-view {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 1em 12px 0 5px;
 }
