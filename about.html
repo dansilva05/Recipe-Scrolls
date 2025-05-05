@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>About Us - My Recipe Scrolls</title>
   <link rel="stylesheet" href="CSS/stylesheet.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
 </head>
 
 <body>
@@ -17,53 +18,89 @@
       <nav>
         <ul>
           <li><a href="index.html">Homepage</a></li>
-          <li><a href="recipes.html">Recipes</a></li>
+          <li>
+            <div class="dropdown">Recipes
+              <div class="dropdown-content">
+                <p><a href="recipes.html">Your Recipes</a></p>
+                <p><a href="tips.html">Cooking Tips</a></p>
+              </div>
+            </div>
+          </li>
           <li><a href="about.html">About Us</a></li>
         </ul>
       </nav>
 
       <main>
-        <div class="about">
-          <h2>About the Website</h2>
-          <p>My aim in this project is to help people keep track of their favourite meals in one place while presenting
-            my skills using HTML, CSS, and (specially) JavaScript.</p>
+        <div class="box">
+          <div class="text-box">
+            <h2>About Us</h2>
+            <p>Welcome to My Recipe Scrolls! This is a personal project created by Danilo Silva, a 19-year-old student
+              in Software System Development at SETU. The website is designed to help you keep track of your favorite
+              recipes and cooking tips.</p>
+            <h2>About the Website</h2>
+            <p>My aim in this project is to help people keep track of their favourite meals in one place while
+              presenting my skills using HTML, CSS, and (specially) JavaScript.</p>
+          </div>
+          <div class="image-box">
+            <img src="images/setu.jpg" alt="About Us Image" class="image">
+          </div>
         </div>
 
-        <div class="about">
-          <h2>About the Data</h2>
-          <p>On the Welcome page, the greeting message is customised to the time of the day - Good Morning, Good
-            Afternoon and Good Evening</p>
-          <p>All recipes are stored in an array as objects using JavaScript. Each one has a title, ingredients, cooking
-            time, and instructions. Title, ingredient, cooking and time to prepare are shown in cards, while the
-            steps/instructions are shown after you click on the recipe card (to do that I used Dialog).</p>
-          <p>In this page, 'About Us', the site and me, I have also used Dialog in order to hide a contact form (which I
-            believe to be more aesthetically pleasing); but the form is not sent to anywhere after.</p>
+        <div class="box">
+          <div class="text-box">
+            <h2>About the Data</h2>
+            <p>On the Welcome page, the greeting message is customised to the time of the day - Good Morning, Good
+              Afternoon and Good Evening</p>
+            <p>All recipes are stored in an array as objects using JavaScript. Each one has a title, ingredients,
+              cooking time, and instructions. Title, ingredient, cooking and time to prepare are shown in cards, while
+              the
+              steps/instructions are shown after you click on the recipe card (to do that I used Dialog).</p>
+            <p>In this page, 'About Us', the site and me, I have also used Dialog in order to hide a contact form (which
+              I believe to be more aesthetically pleasing); but the form is not sent to anywhere after.</p>
+          </div>
+          <div class="image-box">
+            <img src="images/data.gif" alt="About the Data Image" class="image">
+          </div>
         </div>
 
-        <div class="about">
-          <h2>About the Designer</h2>
-          <p>About me, I'm a 19yo student in SETU coursing Software System Development and this website is a project,
-            part of my coursework, to show how I can use code to build useful websites (hopefully I did well&#128513;).
-          </p>
+        <div class="box">
+          <div class="text-box">
+            <h2>About the Designer</h2>
+            <p>I don't really know what to say about me, I'm a 19yo student in SETU coursing Software System
+              Development. I'm an introvert who loves gaming and enjoys MMA (even though not doing it in a long time -
+              getting chubby😅).</p>
+            <p>I'm also a big fan of animes & manga and literature - one of my favorite mangaka is <i>Kentaro Miura</i>,
+              anime is <i>86</i> and writer is <i>Kafka</i>.</p>
+            <p>As I said, I'm an SSD student and inclusively this website is a project, part of my coursework, to show
+              how I can use code to build useful websites (hopefully I did well&#128513;).</p>
+          </div>
+          <div class="image-box" id="shaking">
+            <img src="images/smiling emoji.png" alt="About the Designer Image" class="image">
+          </div>
         </div>
 
-        <div class="about">
+        <div>
           <h2>Contact Me</h2>
+          <p>Send a private email and leave a comment on the site if you like😊</p>
           <button id="contactBtn">Open Contact Form</button>
         </div>
+
+        <section class="comment-view">
+          <h2>Public Comments</h2>
+          <div id="comment-list" class="cards"></div>
+        </section>
       </main>
 
-      <!-- Dialog to hide the form and make it into a pop up, double beautiful to me, way better than if it was on the site itself -->
       <dialog id="contactDialog">
-        <header class="modal__title">
+        <header>
           <h1>Contact Form</h1>
         </header>
 
-        <!-- Form that sends to nowhere -->
         <form id="contact-form" action="mailto:ramdom@email.com" method="post" enctype="text/plain">
           <input type="text" id="name" placeholder="Your Name" required>
           <input type="email" id="email" placeholder="Your Email" required>
-          <textarea id="message" placeholder="Your Message" required></textarea>
+          <textarea id="message" placeholder="Send a private email to me"></textarea>
+          <textarea id="comment" placeholder="Leave a public comment for the site"></textarea>
           <button type="submit">Send</button>
           <button type="button" id="closeBtn">Close</button>
         </form>
@@ -77,35 +114,68 @@
     </div>
   </div>
 
-  <script>
-    //DOMs
-    let contactBtn = document.getElementById("contactBtn");
-    let contactDialog = document.getElementById("contactDialog");
-    let closeBtn = document.getElementById("closeBtn");
-    let messageBox = document.getElementById("form-message");
+  <script id="comment-template" type="text/x-handlebars-template">
+    {{#each comments}}
+      <div class="card">
+        <div class="text">
+          <h3>{{name}}</h3>
+          <p>{{comment}}</p>
+        </div>
+      </div>
+    {{/each}}
+  </script>
 
-    //Shows Dialog after clicking the button
-    contactBtn.addEventListener("click", function () {
+  <script>
+    const contactBtn = document.getElementById("contactBtn");
+    const contactDialog = document.getElementById("contactDialog");
+    const closeBtn = document.getElementById("closeBtn");
+    const formMessage = document.getElementById("form-message");
+    const commentList = document.getElementById("comment-list");
+
+    const comments = [
+      { name: "John Doe", comment: "Great website! Saving all my recipes asap🙏." },
+      { name: "Jane Smith", comment: "I hate it! Shitty Recipes😡... oh wait, they're mine😂" },
+      { name: "Alice Johnson", comment: "Nice you give access to your email, I'll be making your Spam full dumbass🤣🤣🤣🤣" },
+      { name: "Bob Brown", comment: "I hope the website is not just this, keep up the good work!💪" }
+    ];
+
+    let template = Handlebars.compile(document.getElementById("comment-template").innerHTML);
+
+    const renderComments = () => {
+      let rendered = template({ comments: comments.slice().reverse() });
+      commentList.innerHTML = rendered;
+    };
+
+    contactBtn.addEventListener("click", () => {
       contactDialog.showModal();
     });
 
-    //close Dialog button
-    closeBtn.addEventListener("click", function () {
+    closeBtn.addEventListener("click", () => {
       contactDialog.close();
     });
 
-    //event listener to check if the form is filled, if yes, it shows a message
     document.getElementById("contact-form").addEventListener("submit", function (e) {
       e.preventDefault();
-      let name = document.getElementById("name").value.trim();
-      let email = document.getElementById("email").value.trim();
-      let message = document.getElementById("message").value.trim();
 
-      if (name !== "" && email !== "" && message !== "") {
-        messageBox.textContent = "Thanks for your message, " + name + "!";
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const comment = document.getElementById("comment").value.trim();
+
+      if ((message !== "" || comment !== "") && name !== "" && email !== "") {
+        if (comment) {
+          comments.push({ name, comment });
+          renderComments();
+        }
+
+        formMessage.textContent = "Thanks for your interaction, " + name + "!";
         this.reset();
+      } else {
+        formMessage.textContent = "Please fill in all necessary fields (name, email, and message or comment).";
       }
     });
+
+    renderComments();
   </script>
 </body>
 </html>
