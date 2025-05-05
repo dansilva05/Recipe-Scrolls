@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome - My Recipe Scrolls</title>
+  <link rel="stylesheet" href="CSS/stylesheet.css">
+  <link rel="stylesheet" href="CSS/before-effect-slider.css">
+  <link rel="stylesheet" href="CSS/lightgallery-bundle.min.css">
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      <h1>My Recipe Scrolls</h1>
+      <p>Cooking Tips</p>
+    </header>
+
+    <div id="content">
+      <nav>
+        <ul>
+          <li><a href="index.html">Homepage</a></li>
+          <li>
+            <div class="dropdown">Recipes
+              <div class="dropdown-content">
+                <p><a href="recipes.html">Your Recipes</a></p>
+                <p><a href="tips.html">Cooking Tips</a></p>
+              </div>
+            </div>
+          </li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+
+      <main>
+        <h1>Cooking Tips</h1>
+        <h2>Our Selection of Tips and Youtube Videos to improve your cooking Skills😉</h2>
+
+        <div id="images">
+          <h3 style="text-align: center; color: red;">Visual Representation - <i>Before and After</i></h3>
+        </div>
+
+        <div class="texts">
+          <h2>The Five Rules of Cooking</h2>
+          <p>First of all you must know the 5 Rules of Cooking. They are:</p>
+          <ol>
+            <li><strong>Have a Good Knife and Cutting Board.</strong> Having 1 or 2 good knives (specially a chef's
+              knife) is essential, along with a stable cutting board. If your cutting board starts slipping, put a wet
+              paper towel underneath it. And most importantly, learn and practice knife skills to improve your speed and
+              abilities in the kitchen.</li>
+            <li><strong>Prepare your Space and Ingredients before Hand.</strong> Before you start cooking, always clean
+              and clear your space. Gather and prepare all the ingredients beforehand - this is a method used in
+              professional kitchens called <i>mise en place</i> to stay organized and efficient.</li>
+            <li><strong>Cook a Lot.</strong> This tip isn't about cooking all the time, but about cooking in volume.
+              Make more than needed now to save time later — freeze leftovers or repurpose them in other meals. It's
+              efficient, convenient, and makes future meal planning easier.</li>
+            <li><strong>Cook with ingredients not only recipes.</strong> Beginner cooks often rely on recipes, but it's
+              better to let fresh, quality ingredients guide your cooking. Instead of forcing a recipe with poor
+              produce, choose what's fresh and in season, then decide what to make. Practice this weekly with at least
+              one fruit or vegetable to build the habit.</li>
+            <li><strong>Master YOUR Foods</strong> Choose 5-10 recipes you and your family like, and make them
+              regularly. Repeating dishes builds skill, speed, and confidence — and also gives you room to adapt them
+              with seasonal ingredients or personal touches.</li>
+          </ol>
+        </div>
+
+        <div id="lg-container">
+          <div id="lightgallery">
+            <a href="images/knife.jpg" data-lg-size="600-600">
+              <img alt="Photo 1" src="images/knife.jpg" class="lg-image">
+            </a>
+            <a href="images/prep table.webp" data-lg-size="600-600">
+              <img alt="Photo 2" src="images/prep table.webp" class="lg-image">
+            </a>
+            <a href="images/lots of food.jpg" data-lg-size="600-600">
+              <img alt="Photo 3" src="images/lots of food.jpg" class="lg-image">
+            </a>
+            <a href="images/good ingredients.jpg" data-lg-size="600-600">
+              <img alt="Photo 4" src="images/good ingredients.jpg" class="lg-image">
+            </a>
+            <a href="images/spaguetti.jpg" data-lg-size="600-600">
+              <img alt="Photo 5" src="images/spaguetti.jpg" class="lg-image">
+            </a>
+          </div>
+        </div>
+    </div>
+    </main>
+
+    <footer>
+      <p>This site was made by</p>
+      <p>Danilo Silva© 2024</p>
+    </footer>
+  </div>
+  </div>
+
+  <script src="JavaScript/lightgallery.min.js"></script>
+  <script src="JavaScript/lg-fullscreen.min.js"></script>
+  <script src="JavaScript/lg-thumbnail.min.js"></script>
+  <script src="JavaScript/lg-zoom.min.js"></script>
+  <script src="JavaScript/before-effect-slider.js"></script>
+  <script>
+    beforeEffectslider({
+      Selector: "#images",
+      BeforeImage: "images/terriblecook.webp",
+      AfterImage: "images/goodcook.jpg",
+      DragFrom: 10,
+      ButtonsText: {
+        after: 'After',
+        before: 'Before'
+      },
+    });
+  </script>
+</body>
+
+</html>

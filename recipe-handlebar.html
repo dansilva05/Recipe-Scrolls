@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Your Recipes - My Recipe Scrolls (Handlebars)</title>
+    <link rel="stylesheet" href="CSS/stylesheet.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <header>
+            <h1>My Recipe Scrolls</h1>
+            <p>Your Recipe Online Book (Handlebars)</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Homepage</a></li>
+                <li>
+                    <div class="dropdown">Recipes
+                        <div class="dropdown-content">
+                            <p><a href="recipes.html">Your Recipes</a></p>
+                            <p><a href="tips.html">Cooking Tips</a></p>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <h2>Your Recipes (Handlebars)</h2>
+            <input type="text" id="search" placeholder="Search by title or ingredient" style="margin-left: 30px;">
+            <div id="recipe-list" class="cards"></div>
+
+            <h2>Add New Recipe</h2>
+            <form id="recipe-form">
+                <div class="form-question">
+                    <label for="image">Image URL (optional):</label>
+                    <input type="text" id="image" placeholder="Link to an image">
+                </div>
+                <div class="form-question">
+                    <label for="title">Recipe Name:</label>
+                    <input type="text" id="title" required>
+                </div>
+                <div class="form-question">
+                    <label for="ingredients">Ingredients:</label>
+                    <input type="text" id="ingredients" required>
+                </div>
+                <div class="form-question">
+                    <label for="time">Preparation Time:</label>
+                    <input type="text" id="time" required>
+                </div>
+                <div class="form-question">
+                    <label for="instructions">Instructions:</label>
+                    <textarea id="instructions" required></textarea>
+                </div>
+                <button type="submit">Add Recipe</button>
+            </form>
+        </main>
+
+        <dialog id="instructionsDialog">
+            <header>
+                <h1>Instructions</h1>
+            </header>
+            <div id="instructionsContent"></div>
+            <button id="closeBtn">Close</button>
+        </dialog>
+
+        <footer>
+            <p>This site was made by</p>
+            <p>Danilo Silva© 2024</p>
+        </footer>
+    </div>
+
+    <script id="recipe-template" type="text/x-handlebars-template">
+        {{#each recipes}}
+          <div class="card" data-index="{{@index}}">
+            {{#if image}}
+              <img src="{{image}}" alt="{{title}}">
+            {{else}}
+              <div class="noImg">No Image</div>
+            {{/if}}
+            <div class="text">
+              <h3>{{title}}</h3>
+              <p><strong>Ingredients:</strong> {{ingredients}}</p>
+              <p><strong>Time:</strong> {{time}}</p>
+              <button class="delete-button">Delete</button>
+            </div>
+          </div>
+        {{/each}}
+      </script>
+
+
+    <script>
+        const recipes = [
+            {
+                image: "images/spaguetti.jpg",
+                title: "Spaghetti",
+                ingredients: "pasta, tomato sauce, minced meat, onion, garlic, spices",
+                time: "1 hour",
+                instructions: "In large, heavy stockpot, brown Italian sausage, breaking up as you stir. <br>Add onions and continue to cook, stirring occasionally until onions are softened. <br>Add garlic, tomatoes, tomato paste, tomato sauce and water. <br>Add basil, parsley, brown sugar, salt, crushed red pepper, and black pepper. <br>Stir well and barely bring to a boil. <br>Stir in red wine. <br>Simmer on low, stirring frequently for at least an hour. A longer simmer makes for a better sauce, just be careful not to let it burn! <br>Cook spaghetti according to package directions. <br>Spoon sauce over drained spaghetti noodles and sprinkle with parmesan cheese."
+            },
+            {
+                image: "images/salad.jpg",
+                title: "Salad",
+                ingredients: "lettuce, tomato, cucumber, red onion, olives, feta cheese",
+                time: "10 mins",
+                instructions: "For the dressing; in a processor or use a wire whisk process/whisk the olive oil with lemon juice, 2 teaspoons dried oregano, garlic, dried, basil, red wine vinegar, salt and sugar until smooth (add in more oregano and lemon juice if needed). <br>Season with black pepper. <br>Chill in fridge for a couple of hours before using to blend flavors. <br>Place the salad ingredients in a large bowl. <br>Pour dressing over; toss to combine. <br>If desired allow the salad to sit at room temperature for 20 minutes before serving, or you can refrigerate for 1 hour (tossing a few time during sitting time)."
+            }
+        ];
+
+        const templateSource = document.getElementById("recipe-template").innerHTML;
+        const template = Handlebars.compile(templateSource);
+        const list = document.getElementById("recipe-list");
+        const form = document.getElementById("recipe-form");
+        const search = document.getElementById("search");
+        const dialog = document.getElementById("instructionsDialog");
+        const dialogContent = document.getElementById("instructionsContent");
+        const closeBtn = document.getElementById("closeBtn");
+
+        const showRecipes = array => {
+            list.innerHTML = template({ recipes: array });
+
+            document.querySelectorAll(".card").forEach((card, i) => {
+                card.addEventListener("click", e => {
+                    if (e.target.tagName !== "BUTTON") {
+                        dialogContent.innerHTML = `<p>${array[i].instructions}</p>`;
+                        dialog.showModal();
+                    }
+                });
+
+                card.querySelector(".delete-button").addEventListener("click", () => {
+                    deleteRecipe(i);
+                });
+            });
+        };
+
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const newRecipe = {
+                image: document.getElementById("image").value,
+                title: document.getElementById("title").value,
+                ingredients: document.getElementById("ingredients").value,
+                time: document.getElementById("time").value,
+                instructions: document.getElementById("instructions").value
+            };
+
+            recipes.push(newRecipe);
+            form.reset();
+            showRecipes(recipes);
+        });
+
+        const deleteRecipe = index => {
+            recipes.splice(index, 1);
+            showRecipes(recipes);
+        }
+
+        search.addEventListener("input", () => {
+            const term = search.value.toLowerCase();
+            const filtered = recipes.filter(recipe =>
+                recipe.title.toLowerCase().includes(term) ||
+                recipe.ingredients.toLowerCase().includes(term)
+            );
+            showRecipes(filtered);
+        });
+
+        closeBtn.addEventListener("click", () => {
+            dialog.close();
+        });
+
+        showRecipes(recipes);
+    </script>
+</body>
+
+</html>
