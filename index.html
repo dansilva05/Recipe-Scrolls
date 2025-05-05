@@ -17,19 +17,37 @@
       <nav>
         <ul>
           <li><a href="index.html">Homepage</a></li>
-          <li><a href="recipes.html">Recipes</a></li>
+          <li>
+            <div class="dropdown">Recipes
+              <div class="dropdown-content">
+                <p><a href="recipes.html">Your Recipes</a></p>
+                <p><a href="tips.html">Cooking Tips</a></p>
+                <p><a href="recipe-handlebar.html">Recipes (handlebars)</a></p>
+              </div>
+            </div>
+          </li>
           <li><a href="about.html">About Us</a></li>
         </ul>
       </nav>
 
-      <main>
-        <h1 id="welcome"></h1>
-        <h3>Welcome to Your Recipe Book!<br>
-          Your very own kitchen companion.</h3>
+      <main class="box">
+        <div class="text-box">
+          <h1 id="welcome"></h1>
+          <h3>Welcome to Your Recipe Book!<br>
+            Your very own kitchen companion.</h3>
 
-        <p>This is your personal space to keep all your recipes. Here you can add, view or remove them as you like.</p>
-        <p>Click on the recipe to find its instructions and have fun cooking your favorite meals and grandma's specials😋</p>
-        <p>Start by going 'Recipes' and adding your first recipe or browsing the list.</p>
+          <p>This is your personal space to keep all your recipes. Here you can add, view or remove them as you like.
+          </p>
+          <p>Click on the recipe to find its instructions and have fun cooking your favorite meals and grandma's
+            specials😋</p>
+          <p>Start by going 'Recipes' and adding your first recipe or browsing the list.</p>
+        </div>
+        <div class="stacker">
+          <img alt="recipe1" src="images/recipe1.jpg" class="stacked-images">
+          <img alt="recipe2" src="images/recipe2.jpg" class="stacked-images">
+          <img alt="recipe3" src="images/recipe3.jpg" class="stacked-images">
+          <img alt="recipe4" src="images/recipe4.jpg" class="stacked-images">
+        </div>
       </main>
 
       <footer>
@@ -40,7 +58,6 @@
   </div>
 
   <script>
-    //This whole script is to edit the id="welcome" depending on the hour of the day
     let hour = new Date().getHours();
     let greeting = "Welcome!";
 
@@ -53,6 +70,22 @@
     }
 
     document.getElementById("welcome").textContent = greeting;
+
+    // Made by GPT from here
+    const images = document.querySelectorAll('.stacked-images');
+    let current = 0;
+
+    const showNextImage = () => {
+      images[current].classList.remove('active');
+      const next = (current + 1) % images.length;
+      images[next].classList.add('active');
+      current = next;
+    }
+
+    images[current].classList.add('active');
+
+    setInterval(showNextImage, 5000);
+    // to here
   </script>
 </body>
 </html>
