@@ -141,9 +141,9 @@
 
     let template = Handlebars.compile(document.getElementById("comment-template").innerHTML);
 
-    const renderComments = () => {
-      let rendered = template({ comments: comments.slice().reverse() });
-      commentList.innerHTML = rendered;
+    const showComments = () => {
+      let showed = template({ comments: comments.slice().reverse() });
+      commentList.innerHTML = showed;
     };
 
     contactBtn.addEventListener("click", () => {
@@ -165,7 +165,7 @@
       if ((message !== "" || comment !== "") && name !== "" && email !== "") {
         if (comment) {
           comments.push({ name, comment });
-          renderComments();
+          showComments();
         }
 
         formMessage.textContent = "Thanks for your interaction, " + name + "!";
@@ -175,7 +175,7 @@
       }
     });
 
-    renderComments();
+    showComments();
   </script>
 </body>
 </html>
