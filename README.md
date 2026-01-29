@@ -9,17 +9,17 @@ This repository contains my first/second website development assignment for the 
 
 It is a simple Website built as a beginner project, with each having a JavaScript functionality added. This website has:
 - A **Greetings page** (index.html)
-  -- This page has a painel, which changes its image every 2secs.
-  -- The Greeting is also changed depending on the time of the day.
+  - This page has a painel, which changes its image every 2secs.
+   The Greeting is also changed depending on the time of the day.
 - An **About page** to explain my goal with the project, with a bit of a 'Get To Know Me' (about.html)
-  -- This page has a Form for Public Comments and/or Private Emails. Public Comments are shown below on the page.
-  -- With CSS, there is also a Smiling_Emoji image which gigles when hovering on it.
+  - This page has a Form for Public Comments and/or Private Emails. Public Comments are shown below on the page.
+  - With CSS, there is also a Smiling_Emoji image which gigles when hovering on it.
 - A **Cooking Tips page** with general tips to make the food tastier and basic Secure Food Handling (tips.html)
-  -- This page has a Before vs After slider effect
+  - This page has a Before vs After slider effect
 - A **Recipes page** where you add and see your personal recipes (recipes.html)
-  -- This page has a Create, Read, Delete:
-    --- There is a Form, which allows you to add your own recipes.
-    --- The recipe added is shown on the webpage, when hovering upon the item zooms-in. If you click on it you are able to view instructions.
-    --- There is a button on bottom-left which deletes the recipe/item.
+  - This page has a Create, Read, Delete:
+    - There is a Form, which allows you to add your own recipes.
+    - The recipe added is shown on the webpage, when hovering upon the item zooms-in. If you click on it you are able to view instructions.
+    - There is a button on bottom-left which deletes the recipe/item.
 
-![Thumbs up GIF](https://animesher.com/orig/1/192/1922/19229/animesher.com_anime-food-eating-gif-1922938.gif)
+![eating GIF](https://animesher.com/orig/1/192/1922/19229/animesher.com_anime-food-eating-gif-1922938.gif)
