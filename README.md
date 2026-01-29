@@ -22,4 +22,4 @@ It is a simple Website built as a beginner project, with each having a JavaScrip
     - The recipe added is shown on the webpage, when hovering upon the item zooms-in. If you click on it you are able to view instructions.
     - There is a button on bottom-left which deletes the recipe/item.
 
-![eating GIF](https://animesher.com/orig/1/192/1922/19229/animesher.com_anime-food-eating-gif-1922938.gif)
+![eating GIF](https://i.pinimg.com/originals/13/ec/ce/13ecce55694ac449ce15ddeeb2ff78ec.gif)
